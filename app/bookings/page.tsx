@@ -55,12 +55,15 @@ export default function AdminBookings() {
       if (Array.isArray(data)) {
         setBookings(data);
         setTotalPages(1);
-      } else if (typeof data === 'object' && data !== null) {
+      } else if (typeof data === "object" && data !== null) {
         const response = data as any;
         if (response.data && Array.isArray(response.data)) {
           setBookings(response.data);
           setTotalPages(response.pagination?.pages || 1);
-        } else if (response.data?.bookings && Array.isArray(response.data.bookings)) {
+        } else if (
+          response.data?.bookings &&
+          Array.isArray(response.data.bookings)
+        ) {
           setBookings(response.data.bookings);
           setTotalPages(response.pagination?.pages || 1);
         } else {
