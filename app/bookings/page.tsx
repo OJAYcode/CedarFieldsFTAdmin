@@ -55,14 +55,21 @@ export default function AdminBookings() {
       if (Array.isArray(data)) {
         setBookings(data);
         setTotalPages(1);
-      } else if (data?.data && Array.isArray(data.data)) {
-        setBookings(data.data);
-        setTotalPages((data as any).pagination?.pages || 1);
-      } else if ((data as any)?.data?.bookings && Array.isArray((data as any).data.bookings)) {
-        setBookings((data as any).data.bookings);
-        setTotalPages((data as any).pagination?.pages || 1);
+      } else if (typeof data === 'object' && data !== null) {
+        const response = data as any;
+        if (response.data && Array.isArray(response.data)) {
+          setBookings(response.data);
+          setTotalPages(response.pagination?.pages || 1);
+        } else if (response.data?.bookings && Array.isArray(response.data.bookings)) {
+          setBookings(response.data.bookings);
+          setTotalPages(response.pagination?.pages || 1);
+        } else {
+          console.error("API returned non-array data:", data);
+          setBookings([]);
+          setTotalPages(1);
+        }
       } else {
-        console.error("API returned non-array data:", data);
+        console.error("API returned unexpected data:", data);
         setBookings([]);
         setTotalPages(1);
       }
