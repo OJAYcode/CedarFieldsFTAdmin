@@ -57,10 +57,10 @@ export default function AdminBookings() {
         setTotalPages(1);
       } else if (data?.data && Array.isArray(data.data)) {
         setBookings(data.data);
-        setTotalPages(data.pagination?.pages || 1);
-      } else if (data?.data?.bookings && Array.isArray(data.data.bookings)) {
-        setBookings(data.data.bookings);
-        setTotalPages(data.pagination?.pages || 1);
+        setTotalPages((data as any).pagination?.pages || 1);
+      } else if ((data as any)?.data?.bookings && Array.isArray((data as any).data.bookings)) {
+        setBookings((data as any).data.bookings);
+        setTotalPages((data as any).pagination?.pages || 1);
       } else {
         console.error("API returned non-array data:", data);
         setBookings([]);

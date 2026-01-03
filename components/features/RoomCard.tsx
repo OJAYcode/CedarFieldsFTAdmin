@@ -34,6 +34,7 @@ export const RoomCard: React.FC<RoomCardProps> = ({ room }) => {
       {/* Image */}
       <div className="relative h-72 bg-neutral-100 overflow-hidden">
         {room.images && room.images.length > 0 ? (
+          // eslint-disable-next-line @next/next/no-img-element
           <img
             src={room.images[0]}
             alt={room.title}
